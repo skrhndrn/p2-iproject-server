@@ -11,8 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      User.belongsToMany(models.Favorite, { through: models.Favorite })
-      User.belongsToMany(models.Adopt, { through: models.Adopt })
+      User.belongsToMany(models.Cat, {through: models.Favorite})
+      User.belongsToMany(models.Cat, { through: models.Adopt })
     }
   }
   User.init({

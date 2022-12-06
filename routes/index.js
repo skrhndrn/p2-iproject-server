@@ -1,6 +1,6 @@
 "use strict";
 const express = require("express");
-// const UserController = require("../controllers/user");
+const UserController = require("../controllers/user");
 const router = express.Router();
 const favRouter = require("./favorite");
 const adoptRouter = require("./adopt");
