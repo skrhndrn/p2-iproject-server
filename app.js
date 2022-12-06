@@ -8,7 +8,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(require("./routes"));
-// app.use(require("./middlewares/error-handler"));
+app.use(require("./middlewares/error-handler"));
 
 app.listen(port, () => {
   console.log(`listening on port ${port}`);
