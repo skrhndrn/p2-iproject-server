@@ -10,13 +10,41 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      User.belongsToMany(models.Favorite, { through: models.Favorite })
+      User.belongsToMany(models.Adopt, { through: models.Adopt })
     }
   }
   User.init({
-    username: DataTypes.STRING,
-    email: DataTypes.STRING,
-    password: DataTypes.STRING,
+    username: {
+      allowNull: false,
+      type: DataTypes.STRING,
+      validate: {
+        notNull: {msg: "Username is required"},
+        notEmpty: {msg: "Username is required"},
+      },
+    },
+    email: {
+      allowNull: false,
+      type: DataTypes.STRING,
+      unique: {msg: "Email must be unique"},
+      validate: {
+        notNull: {msg: "Email is required"},
+        notEmpty: {msg: "Email is required"},
+        isEmail: {msg: "Use email format"}
+      },
+    },
+    password: {
+      allowNull: false,
+      type: DataTypes.STRING,
+      validate: {
+        notNull: {msg: "Password is required"},
+        notEmpty: {msg: "Password is required"},
+        len: {
+          args: 5,
+          msg: "Password must be more than 5 characters"
+        }
+      },
+    },
     phoneNumber: DataTypes.STRING,
     address: DataTypes.STRING
   }, {
