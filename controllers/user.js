@@ -47,6 +47,42 @@ class UserController{
       next(error)
     }
   }
+
+  static async githubLogin(req, res, next) {
+    try {
+      const { githubToken } = req.body;
+
+      if (!githubToken) {
+        throw { name: "invalidLogin" };
+      }
+
+      const dataGithub = await axios({
+        method: "get",
+        url: "https://api.github.com/user",
+        headers: {
+          Authorization: `Bearer ${githubToken}`,
+        },
+      });
+
+      const githubUsername = dataGithub.data.login;
+
+      const [user, created] = await User.findOrCreate({
+        where: { username: githubUsername },
+        defaults: {
+          username: githubUsername,
+          email: `${githubUsername}@github.com`,
+          password: "github",
+        },
+        hooks: false,
+      });
+
+      const access_token = generateToken({ id: user.id });
+
+      res.status(200).json({ access_token });
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = UserController
