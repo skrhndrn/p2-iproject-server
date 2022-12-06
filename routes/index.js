@@ -1,15 +1,15 @@
 "use strict";
 const express = require("express");
-const UserController = require("../controllers/user");
+// const UserController = require("../controllers/user");
 const router = express.Router();
 const favRouter = require("./favorite");
 const adoptRouter = require("./adopt");
-const authentication = require("../middlewares/authentication");
+// const authentication = require("../middlewares/authentication");
 
-router.post("/register", UserController);
-router.post("/login", UserController);
+router.post("/register", );
+router.post("/login", );
 router.get("/cats");
-router.use(authentication);
+// router.use(authentication);
 router.use("/favorites", favRouter);
 router.use("/adopt", adoptRouter);
 
